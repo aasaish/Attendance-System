@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management System - User Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('backgroundlogin.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1, h2 {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      width: 80%;
+      margin-top: 20px;
+    }
+    table {
+      width: 80%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #addUserButton {
+      background-color: #008CBA;
+      margin-top: 20px;
+    }
+    #addUserButton:hover {
+      background-color: #007bb5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Attendance Management System</h1>
+  <h2>User Management</h2>
+
+  <script>
+    // Check if the user is logged in and has the "Administrator" role
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userRole = localStorage.getItem('userRole');
+  
+    if (!isLoggedIn || userRole !== 'admin') {
+      // Redirect the user to the login page if not logged in or not an administrator
+      window.location.href = 'home.html';
+    } else {
+      // Render the user management page content
+      const usersTable = document.createElement('table');
+  
+      const headerRow = document.createElement('tr');
+      const usernameHeader = document.createElement('th');
+      usernameHeader.textContent = 'Username';
+      const roleHeader = document.createElement('th');
+      roleHeader.textContent = 'Role';
+      const passwordHeader = document.createElement('th');
+      passwordHeader.textContent = 'Password'; // New header for password
+      const actionsHeader = document.createElement('th');
+      actionsHeader.textContent = 'Actions';
+      headerRow.appendChild(usernameHeader);
+      headerRow.appendChild(roleHeader);
+      headerRow.appendChild(passwordHeader);
+      headerRow.appendChild(actionsHeader);
+      usersTable.appendChild(headerRow);
+  
+      // Sample initial users (with passwords)
+      let users = [
+        { username: 'teacher1', role: 'Teacher', password: 'password' },
+        { username: 'admin1', role: 'Administrator', password: 'password' }
+      ];
+  
+      // Function to render the users table
+      function renderUsersTable() {
+        usersTable.innerHTML = ''; // Clear existing table rows
+  
+        users.forEach((user, index) => {
+          const row = document.createElement('tr');
+  
+          const usernameCell = document.createElement('td');
+          usernameCell.textContent = user.username;
+          const roleCell = document.createElement('td');
+          roleCell.textContent = user.role;
+          const passwordCell = document.createElement('td');
+          passwordCell.textContent = user.password; // Display password (for demo purposes only)
+          const actionsCell = document.createElement('td');
+          const editButton = document.createElement('button');
+          editButton.textContent = 'Edit';
+          editButton.addEventListener('click', () => editUser(index)); // Edit user function call
+          const deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Delete';
+          deleteButton.addEventListener('click', () => deleteUser(index)); // Delete user function call
+          actionsCell.appendChild(editButton);
+          actionsCell.appendChild(deleteButton);
+  
+          row.appendChild(usernameCell);
+          row.appendChild(roleCell);
+          row.appendChild(passwordCell);
+          row.appendChild(actionsCell);
+          usersTable.appendChild(row);
+        });
+      }
+  
+      // Initial render
+      renderUsersTable();
+  
+      // Function to add a new user with password
+      function addUser(username, role, password) {
+        users.push({ username, role, password });
+        renderUsersTable();
+      }
+  
+      // Function to delete a user
+      function deleteUser(index) {
+        users.splice(index, 1);
+        renderUsersTable();
+      }
+  
+      // Function to handle adding new user button click
+      function handleAddUserClick() {
+        const accessKey = prompt('Enter access key:');
+        if (accessKey !== '0000') {
+          alert('Invalid access key. User addition canceled.');
+          return;
+        }
+  
+        const username = prompt('Enter username:');
+        let password = prompt('Enter password:');
+        const role = 'Teacher'; // For simplicity, assume new users are added as 'Teacher'
+  
+        // Password length validation (at least 6 characters)
+        while (password.length < 6) {
+          alert('Password must be at least 6 characters long.');
+          password = prompt('Enter password:');
+          if (password === null) {
+            return; // User canceled input
+          }
+        }
+  
+        if (username && password) {
+          addUser(username, role, password);
+        }
+      }
+  
+      // Add new user button
+      const addUserButton = document.createElement('button');
+      addUserButton.id = 'addUserButton';
+      addUserButton.textContent = 'Add New User';
+      addUserButton.addEventListener('click', handleAddUserClick);
+  
+      document.body.appendChild(usersTable);
+      document.body.appendChild(addUserButton);
+    }
+  </script>
+  
+  
+</body>
+</html>

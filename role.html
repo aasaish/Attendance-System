@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance Management System - Select Role</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('backgroundlogin.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    main {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      max-width: 400px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .role-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .role-button:hover {
+      background-color: #45a049;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h2>Select Your Role</h2>
+    <button class="role-button" id="adminButton">Login as Admin</button>
+    <button class="role-button" id="facultyButton">Login as Faculty</button>
+  </main>
+  <footer>
+    <p>&copy; 2024 Attendance Management System</p>
+  </footer>
+  <script>
+    document.getElementById('adminButton').addEventListener('click', function() {
+      window.location.href = 'login.html'; // Redirect to login.html for admin
+    });
+
+    document.getElementById('facultyButton').addEventListener('click', function() {
+      window.location.href = 'login.html'; // Redirect to login.html for faculty
+    });
+  </script>
+</body>
+</html>
